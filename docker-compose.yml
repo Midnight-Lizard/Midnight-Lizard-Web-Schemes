@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  midnightlizard.web.schemes:
+    image: midnightlizard.web.schemes
+    build:
+      context: ./App
+      dockerfile: Dockerfile
