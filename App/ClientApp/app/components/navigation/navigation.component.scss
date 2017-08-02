@@ -1,0 +1,17 @@
+﻿@import '../../themes/light-theme.scss';
+
+a.active-section {
+    color: mat-color($ml-accent);
+}
+
+a.active-section:hover {
+    color: mat-color($ml-accent, A700);
+}
+
+md-nav-list a[md-list-item]:not(.active-section) {
+    color: $ml-gray-text-color;
+}
+
+md-nav-list a[md-list-item]:not(.active-section):hover {
+    color: $ml-text-color;
+}

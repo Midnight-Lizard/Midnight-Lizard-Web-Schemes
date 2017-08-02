@@ -1,0 +1,46 @@
+﻿<md-nav-list>
+    <a md-list-item routerLink="/schemes/index"
+       [routerLinkActiveOptions]="{exact: true}"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon>styles</md-icon>
+        <p md-line>All schemes</p>
+    </a>
+
+    <md-divider></md-divider>
+
+    <h3 md-subheader>Personal lists</h3>
+    <a md-list-item routerLink="/schemes/index/my"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon>account_circle</md-icon>
+        <p md-line>My schemes</p>
+    </a>
+    <a md-list-item routerLink="/schemes/index/favorites"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon>favorite</md-icon>
+        <p md-line>Favorites</p>
+    </a>
+    <a md-list-item routerLink="/schemes/index/liked"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon>thumb_up</md-icon>
+        <p md-line>Liked schemes</p>
+    </a>
+
+    <md-divider></md-divider>
+
+    <h3 md-subheader>Public lists</h3>
+    <a md-list-item routerLink="/schemes/index/popular"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon>stars</md-icon>
+        <p md-line>Popular</p>
+    </a>
+    <a md-list-item routerLink="/schemes/index/dark"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon style="">image</md-icon>
+        <p md-line>Dark</p>
+    </a>
+    <a md-list-item routerLink="/schemes/index/light"
+       routerLinkActive="active-section">
+        <md-icon md-list-icon style="">wallpaper</md-icon>
+        <p md-line>Light</p>
+    </a>
+</md-nav-list>

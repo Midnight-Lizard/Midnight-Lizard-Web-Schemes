@@ -1,0 +1,17 @@
+﻿.body
+{
+    padding: 0px;
+    margin: 0px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.mat-button-toggle-label
+{
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}

@@ -1,0 +1,38 @@
+﻿@import '../../themes/light-theme.scss';
+
+.filter-container
+{
+    width: 100%;
+}
+
+md-card
+{
+    margin: 3px;
+}
+
+md-card-actions .mat-icon:not(important)
+{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+md-card-actions .mat-icon-button
+{
+    line-height: 36px;
+    width: 36px;
+    height: 36px;
+}
+
+md-card-actions
+{
+    text-align: center;
+}
+
+.mat-card-title
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

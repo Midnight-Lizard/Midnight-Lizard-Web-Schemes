@@ -1,0 +1,19 @@
+<div fxLayout="column" ngClass="root">
+    <md-toolbar color="primary" class="mat-elevation-z6"></md-toolbar>
+    <md-sidenav-container fxFlex>
+        <md-sidenav ngClass="left-side" mode="side" opened="true">
+            <router-outlet name="left-side"></router-outlet>
+        </md-sidenav>
+        <div fxLayout="row" fxLayout.lt-md="column" class="content">
+            <div ngClass="center" fxFlex>
+                <router-outlet></router-outlet>
+            </div>
+            <div ngClass="right-side" fxFlex="25%" fxFlex.lt-md="nogrow" fxFlexOrder.lt-md="-1">
+                <div class="right-side-container">
+                    <router-outlet name="right-side"></router-outlet>
+                </div>
+            </div>
+        </div>
+    </md-sidenav-container>
+
+</div>

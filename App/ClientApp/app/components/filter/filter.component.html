@@ -1,0 +1,25 @@
+﻿<form #filterForm="ngForm" (ngSubmit)="applyFilter()">
+    <md-input-container class="filter-container mat-h3" color="accent">
+        <button md-icon-button mdPrefix mdTooltip="Search" (click)="filterForm.ngSubmit.emit()">
+            <md-icon>search</md-icon>
+        </button>
+        <input mdInput id="nameFilter" name="name" placeholder="Filter by name" [(ngModel)]="filter.name">
+        <button md-icon-button mdSuffix mdTooltip="Clear filter" (click)="filter.name=''">
+            <md-icon>clear</md-icon>
+        </button>
+    </md-input-container>
+
+    <md-button-toggle-group #schemeSide="mdButtonToggleGroup" name="side"
+                            [(ngModel)]="filter.side" color="accent"
+                            (change)="navigationCompleted && filterForm.ngSubmit.emit()">
+        <md-button-toggle value="2" mdTooltip="Light side">
+            <md-icon>wallpaper</md-icon>
+        </md-button-toggle>
+        <md-button-toggle value="0" mdTooltip="No side filter">
+            <md-icon>swap_horiz</md-icon>
+        </md-button-toggle>
+        <md-button-toggle value="1" mdTooltip="Dark side">
+            <md-icon>image</md-icon>
+        </md-button-toggle>
+    </md-button-toggle-group>
+</form>
