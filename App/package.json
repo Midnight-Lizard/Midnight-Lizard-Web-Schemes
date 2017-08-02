@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "test-dev": "karma start ClientApp/test/karma.conf.js",
-    "test-ci": "karma start --single-run --browsers ChromeHeadless ClientApp/test/karma.conf.js"
+    "test-ci": "karma start --single-run --browsers ChromeHeadless ClientApp/test/karma.conf.js",
+    "build-vendor-prod": "webpack --config webpack.config.vendor.js --env.prod",
+    "build-vendor-dev": "webpack --config webpack.config.vendor.js",
+    "build-app-prod": "webpack --env.prod",
+    "build-app-dev": "webpack"
   },
   "dependencies": {
     "@angular/animations": "4.1.2",

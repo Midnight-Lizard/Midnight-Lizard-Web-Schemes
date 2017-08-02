@@ -7,12 +7,14 @@ module.exports = (env) =>
 {
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
+    const clientBundleOutputDir = './wwwroot/dist';
     const sharedConfig = {
         stats: { modules: false },
         context: __dirname,
         resolve: { extensions: ['.js', '.ts'] },
         output: {
             filename: '[name].js',
+            path: path.join(__dirname, clientBundleOutputDir),
             publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
         module: {
@@ -28,60 +30,45 @@ module.exports = (env) =>
                 }
             ]
         },
-        plugins: [new CheckerPlugin()]
+        plugins:
+        [
+            new CheckerPlugin(),
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            })
+        ].concat(isDevBuild
+            ? // Plugins that apply in development builds only
+            [
+                new webpack.SourceMapDevToolPlugin({
+                    filename: '[file].map', // Remove this line if you prefer inline source maps
+                    moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+                })
+            ]
+            : // Plugins that apply in production builds only
+            [
+                new webpack.optimize.UglifyJsPlugin()
+            ])
     };
 
     // Configuration for client-side bundle suitable for running in browsers
-    const clientBundleOutputDir = './wwwroot/dist';
     const clientBundleConfig = merge(sharedConfig, {
         entry: {
             'main-client': './ClientApp/boot-client.ts',
+        },
+        output: {
+            libraryTarget: 'var'
+        }
+    });
+
+    const schemesBundleConfig = merge(sharedConfig, {
+        entry: {
             'schemes-module': './ClientApp/app/modules/schemes.module.ts'
         },
         output: {
-            libraryTarget: isDevBuild ? 'var' : 'commonjs',
-            path: path.join(__dirname, clientBundleOutputDir)
-        },
-        plugins: [
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                manifest: isDevBuild
-                    ? require('./wwwroot/dist/vendor-manifest.json')
-                    : require('../Portal/wwwroot/dist/vendor-manifest.json')
-            })
-        ].concat(isDevBuild ? [
-            // Plugins that apply in development builds only
-            new webpack.SourceMapDevToolPlugin({
-                filename: '[file].map', // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
-            })
-        ] : [
-                // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin()
-            ])
-    });
-
-    // Configuration for server-side (prerendering) bundle suitable for running in Node
-    const serverBundleConfig = merge(sharedConfig, {
-        resolve: { mainFields: ['main'] },
-        entry: { 'main-server': './ClientApp/boot-server.ts' },
-        plugins: [
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                manifest: isDevBuild
-                    ? require('./wwwroot/dist/vendor-manifest.json')
-                    : require('../Portal/wwwroot/dist/vendor-manifest.json'),
-                sourceType: 'commonjs2',
-                name: './vendor'
-            })
-        ],
-        output: {
             libraryTarget: 'commonjs',
-            path: path.join(__dirname, './ClientApp/dist')
-        },
-        target: 'node',
-        devtool: 'inline-source-map'
+        }
     });
 
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig, schemesBundleConfig];
 };
