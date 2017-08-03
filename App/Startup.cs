@@ -20,8 +20,11 @@ namespace MidnightLizard.Web.Schemes
 
     public class Startup
     {
+        public static IHostingEnvironment _env;
+
         public Startup(IHostingEnvironment env)
         {
+            Startup._env = env;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
