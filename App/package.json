@@ -2,12 +2,12 @@
   "name": "MidnightLizardWebSchemes",
   "version": "0.0.0",
   "scripts": {
-    "test-dev": "karma start ClientApp/test/karma.conf.js",
-    "test-ci": "karma start --single-run --browsers ChromeHeadless ClientApp/test/karma.conf.js",
-    "build-vendor-prod": "webpack --config webpack.config.vendor.js --env.prod",
-    "build-vendor-dev": "webpack --config webpack.config.vendor.js",
-    "build-app-prod": "webpack --env.prod",
-    "build-app-dev": "webpack"
+    "dev-test": "karma start ClientApp/test/karma.conf.js",
+    "ci-test": "karma start --single-run --browsers ChromeCI --reporters progress,trx ClientApp/test/karma.conf.js",
+    "prod-build-vendor": "webpack --config webpack.config.vendor.js --env.prod",
+    "dev-build-vendor": "webpack --config webpack.config.vendor.js",
+    "prod-build-app": "webpack --env.prod",
+    "dev-build-app": "webpack"
   },
   "dependencies": {
     "@angular/animations": "4.1.2",
@@ -68,6 +68,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-trx-reporter": "^0.2.9",
     "karma-webpack": "^2.0.4"
   }
 }

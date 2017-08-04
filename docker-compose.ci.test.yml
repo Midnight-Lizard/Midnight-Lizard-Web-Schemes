@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  midnightlizard.web.schemes.tests:
+    image: midnightlizard.web.schemes.tests
+    build:
+      context: ./App
+      dockerfile: Dockertest

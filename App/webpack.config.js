@@ -14,7 +14,6 @@ module.exports = (env) =>
         resolve: { extensions: ['.js', '.ts'] },
         output: {
             filename: '[name].js',
-            path: path.join(__dirname, clientBundleOutputDir),
             publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
         module: {
@@ -57,6 +56,7 @@ module.exports = (env) =>
             'main-client': './ClientApp/boot-client.ts',
         },
         output: {
+            path: path.join(__dirname, clientBundleOutputDir),
             libraryTarget: 'var'
         }
     });
@@ -66,6 +66,7 @@ module.exports = (env) =>
             'schemes-module': './ClientApp/app/modules/schemes.module.ts'
         },
         output: {
+            path: path.join(__dirname, clientBundleOutputDir),
             libraryTarget: 'commonjs',
         }
     });

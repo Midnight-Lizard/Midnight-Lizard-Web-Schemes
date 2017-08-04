@@ -7,7 +7,7 @@ module.exports = function (config)
         basePath: '.',
         frameworks: ['jasmine'],
         files: [
-            '../../wwwroot/dist/styles.css',
+            '../../wwwroot/assets/styles.css',
             '../../wwwroot/dist/vendor.css',
             '../../wwwroot/dist/vendor.js',
             './boot-tests.ts'
@@ -16,20 +16,27 @@ module.exports = function (config)
             './boot-tests.ts': ['webpack']
         },
         reporters: ['progress', 'kjhtml'],
+        trxReporter: { outputFile: 'test-results.trx' },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['ChromeKarma'],
+        browsers: ['ChromeDev'],
         customLaunchers: {
-            ChromeKarma: {
+            ChromeDev: {
                 base: 'Chrome',
                 chromeDataDir: '../Karma'
+            },
+            ChromeCI: {
+                base: 'ChromeHeadless',
+                chromeDataDir: '~/Chrome',
+                flags: ['--no-sandbox']
             }
         },
         mime: { 'application/javascript': ['ts', 'tsx'] },
         singleRun: false,
-        webpack: require('../../webpack.config.js')().filter(config => config.target !== 'node'), // Test against client bundle, because tests run in a browser
+        webpack: require('../../webpack.config.js')()[0],
+            //.filter(config => config.target !== 'node'), // Test against client bundle, because tests run in a browser
         webpackMiddleware: { stats: 'errors-only' }
     });
 };
