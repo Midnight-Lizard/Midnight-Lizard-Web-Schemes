@@ -6,3 +6,5 @@ services:
     build:
       context: ./App
       dockerfile: Dockertest
+    volumes:
+      - ./test-results:/app/test-results

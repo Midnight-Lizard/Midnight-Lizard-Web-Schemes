@@ -16,7 +16,8 @@ module.exports = function (config)
             './boot-tests.ts': ['webpack']
         },
         reporters: ['progress', 'kjhtml'],
-        trxReporter: { outputFile: 'test-results.trx' },
+        trxReporter: { outputFile: 'test-results.trx', shortTestName: false },
+        tfsReporter: { outputFile: 'test-results.xml', outputDir: 'test-results' },
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
