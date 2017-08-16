@@ -6,8 +6,7 @@ import { SchemesMaterialControlsModule } from "./modules/material.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpModule } from '@angular/http';
 
-export const sharedConfig: NgModule = {
-    bootstrap: [AppComponent],
+@NgModule({
     declarations: [
         AppComponent
     ],
@@ -17,8 +16,9 @@ export const sharedConfig: NgModule = {
         HttpModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'schemes', pathMatch: 'full' },
-            { path: 'schemes', loadChildren: () => SchemesModule },
+            { path: 'schemes', loadChildren: './modules/schemes.module' },
             { path: '**', redirectTo: 'schemes' }
         ])
     ]
-};
+})
+export class AppModuleShared { }

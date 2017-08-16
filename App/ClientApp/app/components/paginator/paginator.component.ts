@@ -13,7 +13,7 @@ export class SchemesPaginatorComponent implements OnInit
     @ViewChild("paginator")
     protected readonly paginator: MdPaginator;
 
-    constructor(protected readonly _service: SchemesService)
+    constructor(readonly _service: SchemesService)
     {
         _service.pageOptions$.subscribe(pageOptions =>
         {
@@ -30,7 +30,7 @@ export class SchemesPaginatorComponent implements OnInit
         this.paginator.pageSize = getDefaultPageOptions().pageSize;
     }
 
-    protected onPageChanged(event: PageEvent)
+    onPageChanged(event: PageEvent)
     {
         this._service.setPage(event);
     }

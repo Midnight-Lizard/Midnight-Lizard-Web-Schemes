@@ -9,11 +9,11 @@ import { SchemesService } from "../../services/schemes.service";
 })
 export class SchemesListComponent
 {
-    protected _cols: number = 3;
-    protected _aspect: string = "4:5";
+    _cols: number = 3;
+    _aspect: string = "4:5";
 
     constructor(
-        protected readonly _service: SchemesService,
+        readonly _service: SchemesService,
         media: ObservableMedia)
     {
         media.subscribe((change: MediaChange) =>

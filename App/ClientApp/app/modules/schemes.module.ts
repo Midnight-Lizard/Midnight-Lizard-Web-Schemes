@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FetchDataComponent } from '../components/fetchdata/fetchdata.component';
 import { SchemesNavigationComponent } from "../components/navigation/navigation.component";
 import { SchemesMaterialControlsModule } from "./material.module";
 import { SchemesListComponent } from "../components/list/list.component";
@@ -50,6 +49,7 @@ const index = "index";
         SchemesAccessor
     ]
 })
-export default class SchemesModule
+export class SchemesModule
 {
 }
+export default SchemesModule;
