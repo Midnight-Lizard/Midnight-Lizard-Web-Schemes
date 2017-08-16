@@ -3,12 +3,13 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 
-module.exports = (env) => {
+module.exports = (env) =>
+{
     const extractCSS = new ExtractTextPlugin('vendor.css');
     const isDevBuild = !(env && env.prod);
     const sharedConfig = {
         stats: { modules: false },
-        resolve: { extensions: [ '.js' ] },
+        resolve: { extensions: ['.js'] },
         module: {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
@@ -18,8 +19,6 @@ module.exports = (env) => {
             vendor: [
                 '@angular/animations',
                 '@angular/material',
-                'material-design-icons-iconfont/dist/material-design-icons.css',
-                './ClientApp/app/themes/core-theme.scss',
                 '@angular/flex-layout',
                 '@angular/cdk',
                 '@angular/common',
@@ -52,14 +51,20 @@ module.exports = (env) => {
     };
 
     const clientBundleConfig = merge(sharedConfig, {
-        entry: { vendor: ['hammerjs'] },
+        entry: {
+            vendor: [
+                'hammerjs',
+                'material-design-icons-iconfont/dist/material-design-icons.css',
+                './ClientApp/app/themes/core-theme.scss'
+            ]
+        },
         output: { path: path.join(__dirname, 'wwwroot', 'dist') },
         module: {
             rules: [
                 { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
                 {
                     test: /\.scss$/,
-                    use: extractCSS.extract({ use: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize']  })
+                    use: extractCSS.extract({ use: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize'] })
                 }
             ]
         },
@@ -82,7 +87,7 @@ module.exports = (env) => {
             libraryTarget: 'commonjs2',
         },
         module: {
-            rules: [ { test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize' ] } ]
+            rules: [{ test: /\.css(\?|$)/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] }]
         },
         entry: { vendor: ['aspnet-prerendering'] },
         plugins: [
