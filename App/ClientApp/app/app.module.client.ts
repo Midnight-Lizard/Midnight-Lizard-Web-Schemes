@@ -11,7 +11,7 @@ import { sharedConfig } from './app.module.shared';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        ...sharedConfig.imports
+        ...sharedConfig.imports!
     ],
     providers: [
         { provide: 'ORIGIN_URL', useValue: location.origin }

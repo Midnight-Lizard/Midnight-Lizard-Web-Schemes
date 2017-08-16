@@ -29,7 +29,7 @@ describe('paginator component',
             this.pageOptions = new BehaviorSubject<PageOptions>(getDefaultPageOptions());
             const SchemesServiceStub = {
                 pageOptions$: this.pageOptions.asObservable(),
-                setPage(pageOptions) { console.log(pageOptions) }
+                setPage(pageOptions: any) { console.log(pageOptions) }
             };
             TestBed.configureTestingModule({
                 declarations: [SchemesPaginatorComponent],

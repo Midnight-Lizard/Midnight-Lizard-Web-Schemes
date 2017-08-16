@@ -25,7 +25,7 @@ module.exports = (env) =>
                 {
                     test: /\.scss$/,
                     exclude: /node_modules/,
-                    loaders: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize'] // sass-loader not scss-loader
+                    loaders: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize'] // sass-loader
                 }
             ]
         },
@@ -46,7 +46,12 @@ module.exports = (env) =>
             ]
             : // Plugins that apply in production builds only
             [
-                new webpack.optimize.UglifyJsPlugin()
+                new webpack.optimize.UglifyJsPlugin(),
+                new AotPlugin({
+                    tsConfigPath: './tsconfig.json',
+                    entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
+                    exclude: ['./**/*.server.ts']
+                })
             ])
     };
 
@@ -67,7 +72,7 @@ module.exports = (env) =>
         },
         output: {
             path: path.join(__dirname, clientBundleOutputDir),
-            libraryTarget: 'commonjs',
+            libraryTarget: 'commonjs'
         }
     });
 

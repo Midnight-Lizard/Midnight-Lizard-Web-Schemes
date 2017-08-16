@@ -112,7 +112,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                         }));
                         it(`should contain scheme name`, fakeAsync(() =>
                         {
-                            expect(this.titleElement.textContent.trim()).toEqual(scheme.colorSchemeName);
+                            expect(this.titleElement.textContent!.trim()).toEqual(scheme.colorSchemeName);
                         }));
                     });
                 });
@@ -261,7 +261,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
             assume(card.attributes["sid"]).is.equal(scheme.colorSchemeId, "Because sid is bound to colorSchemeId");
             assume(card.query(By.css("md-card-header")).attributes["ng-reflect-message"]).is.equal(scheme.colorSchemeName, "Card header should have tooltip with scheme name");
             assume(card.query(By.directive(MdCardTitle)).properties["href"]).is.equal(scheme.imageUrl);
-            assume((card.query(By.directive(MdCardTitle)).nativeElement as HTMLAnchorElement).textContent.trim()).is.equal(scheme.colorSchemeName, "Because card title is bound to scheme name");
+            assume((card.query(By.directive(MdCardTitle)).nativeElement as HTMLAnchorElement).textContent!.trim()).is.equal(scheme.colorSchemeName, "Because card title is bound to scheme name");
             assume(card.query(By.directive(MdCardImage)).properties["src"]).is.equal(scheme.imageUrl, "Because image source is bound to scheme image url");
             const buttons = card.queryAll(By.directive(MdButton));
             assume(buttons.length).is.equal(5, "Each card has 5 action buttons");

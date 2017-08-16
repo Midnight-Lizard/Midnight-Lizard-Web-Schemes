@@ -7,7 +7,7 @@ import { sharedConfig } from './app.module.shared';
     declarations: sharedConfig.declarations,
     imports: [
         ServerModule,
-        ...sharedConfig.imports
+        ...sharedConfig.imports!
     ],
     providers: [
         { provide: 'ORIGIN_URL', useValue: "http://localhost:80" }
