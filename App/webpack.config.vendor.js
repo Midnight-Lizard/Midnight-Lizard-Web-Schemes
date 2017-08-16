@@ -40,7 +40,7 @@ module.exports = (env) =>
         output: {
             publicPath: '/dist/',
             filename: '[name].js',
-            library: '[name][hash]'
+            library: '[name]'
         },
         plugins: [
             new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
@@ -72,7 +72,7 @@ module.exports = (env) =>
             extractCSS,
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
-                name: '[name][hash]'
+                name: '[name]'
             })
         ].concat(isDevBuild ? [] : [
             new webpack.optimize.UglifyJsPlugin()
@@ -93,7 +93,7 @@ module.exports = (env) =>
         plugins: [
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'ClientApp', 'dist', '[name]-manifest.json'),
-                name: '[name][hash]'
+                name: '[name]'
             })
         ]
     });
