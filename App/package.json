@@ -1,6 +1,9 @@
 {
-  "name": "MidnightLizardWebSchemes",
+  "name": "midnight-lizard-web-schemes",
   "version": "0.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/pavel-agarkov/Midnight-Lizard-Web-Schemes.git",
+  "author": "Pavel Agarkov",
   "scripts": {
     "dev-test": "karma start ClientApp/test/karma.conf.js",
     "ci-test": "karma start --single-run --browsers ChromeCI --reporters progress,tfs ClientApp/test/karma.conf.js",
@@ -11,17 +14,6 @@
     "midnight-lizard-vendor": "^1.0.4"
   },
   "devDependencies": {
-    "@types/chai": "4.0.1",
-    "@types/jasmine": "2.5.53",
-    "chai": "^4.1.0",
-    "jasmine-core": "^2.6.4",
-    "karma": "^1.7.0",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-cli": "^1.0.1",
-    "karma-jasmine": "^1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-tfs-reporter": "^1.0.1",
-    "karma-webpack": "^2.0.4"
+    "midnight-lizard-testing": "^1.0.0"
   }
 }
