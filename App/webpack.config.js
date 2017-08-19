@@ -7,7 +7,7 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 module.exports = (env) =>
 {
     // Configuration in common to both client-side and server-side bundles
-    const isDevBuild = !(env && env.prod);
+    const isDevBuild = !(env && env.prod); process.env.r
     const clientBundleOutputDir = './wwwroot/dist';
     const sharedConfig = {
         stats: { modules: false },
@@ -19,7 +19,7 @@ module.exports = (env) =>
         },
         module: {
             rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader'] },
+                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
                 { test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
@@ -32,11 +32,7 @@ module.exports = (env) =>
         },
         plugins:
         [
-            new CheckerPlugin(),
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                manifest: require('./wwwroot/dist/vendor-manifest.json')
-            })
+            new CheckerPlugin()
         ].concat(isDevBuild
             ? // Plugins that apply in development builds only
             [
@@ -47,24 +43,30 @@ module.exports = (env) =>
             ]
             : // Plugins that apply in production builds only
             [
-                new webpack.optimize.UglifyJsPlugin(),
-                new AotPlugin({
-                    tsConfigPath: './tsconfig.json',
-                    entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
-                    exclude: ['./**/*.server.ts']
-                })
+                new webpack.optimize.UglifyJsPlugin({ comments: false, output: { comments: false } })
             ])
     };
 
     // Configuration for client-side bundle suitable for running in browsers
     const clientBundleConfig = merge(sharedConfig, {
         entry: {
-            'main-client': './ClientApp/boot-client.ts',
+            'main-client': './ClientApp/boot-client.ts'
         },
         output: {
             path: path.join(__dirname, clientBundleOutputDir),
             libraryTarget: 'var'
-        }
+        },
+        plugins: [
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            })
+        ].concat(isDevBuild ? [] : [
+            new AotPlugin({
+                tsConfigPath: './tsconfig.json',
+                entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
+                exclude: ['./**/*.server.ts']
+            })])
     });
 
     const schemesBundleConfig = merge(sharedConfig, {
@@ -74,7 +76,18 @@ module.exports = (env) =>
         output: {
             path: path.join(__dirname, clientBundleOutputDir),
             libraryTarget: 'commonjs'
-        }
+        },
+        plugins: [
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            })
+        ].concat(isDevBuild ? [] : [
+            new AotPlugin({
+                tsConfigPath: './tsconfig.json',
+                entryModule: path.join(__dirname, 'ClientApp/app/modules/schemes.module#SchemesModule'),
+                exclude: ['./**/*.server.ts']
+            })])
     });
 
     return [clientBundleConfig, schemesBundleConfig];

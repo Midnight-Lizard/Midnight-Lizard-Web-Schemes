@@ -8,10 +8,11 @@
     "dev-test": "karma start ClientApp/test/karma.conf.js",
     "ci-test": "karma start --single-run --browsers ChromeCI --reporters progress,tfs ClientApp/test/karma.conf.js",
     "prod-build": "webpack -p --env.prod",
-    "dev-build": "webpack"
+    "dev-build": "webpack",
+    "prod-install": "SET NODE_ENV=production&& npm install"
   },
   "dependencies": {
-    "midnight-lizard-vendor": "^1.0.4"
+    "midnight-lizard-vendor": "^1.1.1"
   },
   "devDependencies": {
     "midnight-lizard-testing": "^1.0.0"

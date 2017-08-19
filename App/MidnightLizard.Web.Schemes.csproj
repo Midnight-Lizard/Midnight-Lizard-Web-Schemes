@@ -25,9 +25,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientApp\dist\" />
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="NODE_ENV=production npm install" />
+    <Exec Command="SET NODE_ENV=production&amp;&amp; npm install" />
     <Exec Command="node node_modules/webpack/bin/webpack.js -p --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
