@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  midnightlizard_web_schemes_build:
+    image: midnightlizard_web_schemes_build
+    build:
+      context: ./
+      dockerfile: Dockerbuild

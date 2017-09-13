@@ -1,4 +1,6 @@
-﻿import { TestScheduler } from "jasmine-marbles/src/scheduler";
+﻿import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/throttleTime";
+import { TestScheduler } from "jasmine-marbles/src/scheduler";
 import { Observable } from "rxjs/Observable";
 
 export class MarbleSchedulerInjector

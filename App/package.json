@@ -8,7 +8,7 @@
     "dev-test": "SET NODE_ENV=test&&karma start ClientApp/test/karma.conf.js",
     "ci-test": "karma start --single-run --browsers ChromeCI --reporters progress,tfs ClientApp/test/karma.conf.js",
     "docker-test": "cd ..&&docker-compose -f docker-compose.ci.test.yml up --build --abort-on-container-exit",
-    "docker-build": "cd ..&&docker-compose -f docker-compose.ci.build.yml up --build --abort-on-container-exit",
+    "docker-build": "cd ..&&docker-compose -f docker-compose.build.yml up --build --abort-on-container-exit",
     "prod-build": "webpack -p --env.prod",
     "dev-build": "webpack --verbose",
     "prod-install": "SET NODE_ENV=production&& npm install"
