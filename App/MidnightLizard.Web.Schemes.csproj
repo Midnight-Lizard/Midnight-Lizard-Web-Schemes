@@ -15,8 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
-    <None Remove="ClientApp\schemes\backend\schemes.service-stub.ts" />
-    <None Remove="ClientApp\test\utils\marble-scheduler-injector.ts" />
     <None Remove="MidnightLizard.Web.Schemes.csproj.vspscc" />
     <None Remove="Properties\PublishProfiles\Midnight-Lizard-Web-Schemes.pubxml" />
     <None Remove="yarn.lock" />
@@ -28,17 +26,12 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\schemes\backend\schemes.service-stub.ts" />
-    <TypeScriptCompile Include="ClientApp\schemes\store\schemes.action-sets.ts" />
-    <TypeScriptCompile Include="ClientApp\test\utils\marble-scheduler-injector.ts" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ClientApp\dist\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="npm install" />
+    <Exec Command="NODE_ENV=production npm install" />
     <Exec Command="node node_modules/webpack/bin/webpack.js -p --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
