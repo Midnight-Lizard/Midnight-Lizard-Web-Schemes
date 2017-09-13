@@ -14,7 +14,7 @@
     "prod-install": "SET NODE_ENV=production&& npm install"
   },
   "dependencies": {
-    "midnight-lizard-vendor": "2.4.0"
+    "midnight-lizard-vendor": "2.4.1"
   },
   "devDependencies": {
     "midnight-lizard-testing": "1.1.0"
