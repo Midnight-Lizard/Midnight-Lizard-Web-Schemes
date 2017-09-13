@@ -1,5 +1,4 @@
-﻿{{aspect}}
-<md-grid-list [cols]="cols" gutterSize="20" [rowHeight]="aspect">
+﻿<md-grid-list [cols]="cols" gutterSize="20" [rowHeight]="aspect">
     <md-grid-tile *ngFor="let scheme of schemes$|async; index as ix; trackBy: trackById">
         <md-card [tabindex]="100+ix" [attr.sid]="scheme.id">
             <md-card-header [mdTooltip]="scheme.name" mdTooltipPosition="above">
