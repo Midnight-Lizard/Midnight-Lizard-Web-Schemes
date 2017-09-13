@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppModuleShared } from './app.module.shared';
-import { AppComponent } from "./components/app/app.component";
+import { AppComponent } from "./app.component";
 
 @NgModule({
     bootstrap: [AppComponent],

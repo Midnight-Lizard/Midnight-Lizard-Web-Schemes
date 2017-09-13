@@ -1,0 +1,25 @@
+﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
+
+a.active-section .mat-line,
+a.active-section .mat-list-icon
+{
+    color: mat-color($ml-accent);
+}
+
+a.active-section:hover .mat-line,
+a.active-section:hover .mat-list-icon
+{
+    color: mat-color($ml-accent, A700);
+}
+
+md-nav-list a[md-list-item][class="mat-list-item"] .mat-line,
+md-nav-list a[md-list-item][class="mat-list-item"] .mat-list-icon
+{
+    color: $ml-gray-text-color;
+}
+
+md-nav-list a[md-list-item][class="mat-list-item"]:hover .mat-line,
+md-nav-list a[md-list-item][class="mat-list-item"]:hover .mat-list-icon
+{
+    color: $ml-text-color;
+}

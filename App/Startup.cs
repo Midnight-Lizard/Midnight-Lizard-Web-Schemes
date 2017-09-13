@@ -51,6 +51,15 @@ namespace MidnightLizard.Web.Schemes
             });
             // Add framework services.
             services.AddMvc();
+            if (_env.IsDevelopment())
+            {
+                services.AddNodeServices(options =>
+                {
+                    // chrome-devtools://
+                    options.LaunchWithDebugging = true;
+                    options.DebuggingPort = 9229;
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +87,14 @@ namespace MidnightLizard.Web.Schemes
             app.UseCors("AllowAll");
 
             app.UseStaticFiles();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    OnPrepareResponse = context =>
+            //    {
+            //        context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            //        context.Context.Response.Headers.Add("Expires", "-1");
+            //    }
+            //});
 
             app.UseMvc(routes =>
             {

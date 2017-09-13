@@ -5,16 +5,17 @@
   "repository": "https://github.com/pavel-agarkov/Midnight-Lizard-Web-Schemes.git",
   "author": "Pavel Agarkov",
   "scripts": {
-    "dev-test": "karma start ClientApp/test/karma.conf.js",
+    "dev-test": "SET NODE_ENV=test&&karma start ClientApp/test/karma.conf.js",
     "ci-test": "karma start --single-run --browsers ChromeCI --reporters progress,tfs ClientApp/test/karma.conf.js",
+    "docker-test": "cd ..&&docker-compose -f docker-compose.ci.test.yml up --build --abort-on-container-exit",
     "prod-build": "webpack -p --env.prod",
-    "dev-build": "webpack",
+    "dev-build": "webpack --verbose",
     "prod-install": "SET NODE_ENV=production&& npm install"
   },
   "dependencies": {
-    "midnight-lizard-vendor": "^1.1.1"
+    "midnight-lizard-vendor": "2.4.0"
   },
   "devDependencies": {
-    "midnight-lizard-testing": "^1.0.0"
+    "midnight-lizard-testing": "1.1.0"
   }
 }

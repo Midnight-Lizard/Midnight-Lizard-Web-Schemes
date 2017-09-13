@@ -1,29 +1,49 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './components/app/app.component'
-import { SchemesMaterialControlsModule } from "./modules/material.module";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpModule } from '@angular/http';
-import { SchemesModule } from "./modules/schemes.module";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { StoreModule, Action } from '@ngrx/store';
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-export function schemesModuleFactory()
-{
-    return SchemesModule;
-}
+import { AppComponent } from './app.component'
+import { SchemesMaterialControlsModule } from "../shared/material.module";
+import { SchemesModule } from '../schemes/schemes.module';
+
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
-        SchemesMaterialControlsModule,
         FlexLayoutModule,
+        SchemesMaterialControlsModule,
         HttpModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'schemes', pathMatch: 'full' },
-            { path: 'schemes', loadChildren: schemesModuleFactory },
+            {
+                path: 'schemes',
+                loadChildren: schemesLoader//'../schemes/schemes.module#SchemesModule'
+            },
             { path: '**', redirectTo: 'schemes' }
-        ])
+        ]/*, { useHash: true }*/),
+        StoreRouterConnectingModule,
+        StoreModule.forRoot(
+            { global: reducer },
+            { initialState: { global: {} } }),
+        StoreDevtoolsModule.instrument(),
+        EffectsModule.forRoot([])
     ]
 })
 export class AppModuleShared { }
+
+export function schemesLoader()
+{
+    return SchemesModule;
+}
+
+export function reducer(s: {}, a: Action)
+{
+    return s;
+}

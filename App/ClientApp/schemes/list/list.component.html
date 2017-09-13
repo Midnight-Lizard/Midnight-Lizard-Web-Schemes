@@ -1,0 +1,45 @@
+﻿{{aspect}}
+<md-grid-list [cols]="cols" gutterSize="20" [rowHeight]="aspect">
+    <md-grid-tile *ngFor="let scheme of schemes$|async; index as ix; trackBy: trackById">
+        <md-card [tabindex]="100+ix" [attr.sid]="scheme.id">
+            <md-card-header [mdTooltip]="scheme.name" mdTooltipPosition="above">
+                <md-icon md-card-avatar>palette</md-icon>
+                <a md-card-title [href]="scheme.screenshots[0].url" target="_blank">
+                    {{scheme.name}}
+                </a>
+            </md-card-header>
+            <!--<a md-card-title [href]="scheme.imageUrl" target="_blank">
+                <md-icon md-card-avatar>palette</md-icon>
+                <span>
+                    {{scheme.colorSchemeName}}
+                </span>
+            </a>-->
+            <img md-card-image [src]="scheme.screenshots[0].url">
+            <md-card-actions>
+                <button md-icon-button
+                        [color]="scheme.liked ? 'accent' : 'primary'"
+                        [mdTooltip]="scheme.liked ? 'Remove like' : 'Add like'"
+                        (click)="toggleSchemeLiked(scheme)">
+                    <md-icon>thumb_up</md-icon>
+                    <p style="font-size:10px;position:absolute;top:28px;left:8px;line-height:10px;">{{scheme.likes}}</p>
+                </button>
+                <button md-icon-button
+                        [color]="scheme.favorited ? 'warn' : 'primary'"
+                        [mdTooltip]="scheme.favorited ? 'Remove from favorites' : 'Add to favorites'"
+                        (click)="toggleSchemeFavorited(scheme)">
+                    <md-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</md-icon>
+                </button>
+                <button md-icon-button mdTooltip="Download">
+                    <md-icon>file_download</md-icon>
+                </button>
+                <button md-icon-button mdTooltip="Add to your browser">
+                    <md-icon>add_circle_outline</md-icon>
+                </button>
+                <button md-icon-button mdTooltip="Share">
+                    <md-icon>share</md-icon>
+                </button>
+            </md-card-actions>
+        </md-card>
+    </md-grid-tile>
+</md-grid-list>
+<cs-paginator></cs-paginator>

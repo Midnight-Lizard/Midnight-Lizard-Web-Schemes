@@ -1,0 +1,6 @@
+﻿<md-paginator (page)="onPageChanged($event)"
+              [length]="total$|async"
+              [pageSize]="pageSize$|async"
+              [pageSizeOptions]="pageSizeOptions$|async"
+              [pageIndex]="pageIndex$|async">
+</md-paginator>

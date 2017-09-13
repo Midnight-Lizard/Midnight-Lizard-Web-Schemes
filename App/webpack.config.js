@@ -7,7 +7,8 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 module.exports = (env) =>
 {
     // Configuration in common to both client-side and server-side bundles
-    const isDevBuild = !(env && env.prod); process.env.r
+    const isDevBuild = !(env && env.prod);
+    const isTest = process.env.NODE_ENV === 'test';
     const clientBundleOutputDir = './wwwroot/dist';
     const sharedConfig = {
         stats: { modules: false },
@@ -20,13 +21,34 @@ module.exports = (env) =>
         module: {
             rules: [
                 { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
-                { test: /\.html$/, use: 'html-loader?minimize=false' },
+                {
+                    test: /\.html$/, use: [{
+                        loader: 'html-loader', options: {
+                            "minimize": !isDevBuild,
+                            "removeComments": true,
+                            "removeCommentsFromCDATA": true,
+                            "removeCDATASectionsFromCDATA": false,
+                            "collapseWhitespace": true,
+                            "conservativeCollapse": true,
+                            "removeAttributeQuotes": false,
+                            "useShortDoctype": false,
+                            "keepClosingSlash": true,
+                            "minifyJS": false,
+                            "minifyCSS": false,
+                            "removeScriptTypeAttributes": false,
+                            "removeStyleTypeAttributes": false,
+                            "caseSensitive": true,
+                            "customAttrSurround": [[/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/]],
+                            "customAttrAssign": [/\)?\]?=/]
+                        }
+                    }]
+                },
                 { test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
                 {
                     test: /\.scss$/,
                     exclude: /node_modules/,
-                    loaders: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize'] // sass-loader
+                    use: ['raw-loader', isDevBuild ? 'sass-loader' : 'sass-loader?minimize'] // sass-loader
                 }
             ]
         },
@@ -37,13 +59,14 @@ module.exports = (env) =>
             ? // Plugins that apply in development builds only
             [
                 new webpack.SourceMapDevToolPlugin({
-                    filename: '[file].map', // Remove this line if you prefer inline source maps
-                    moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+                    filename: isTest ? null : '[file].map',
+                    test: /\.(ts|js)($|\?)/i,
+                    moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
                 })
             ]
             : // Plugins that apply in production builds only
             [
-                new webpack.optimize.UglifyJsPlugin({ comments: false, output: { comments: false } })
+                new webpack.optimize.UglifyJsPlugin({ comments: false, output: { comments: false }, sourceMap: isDevBuild || isTest })
             ])
     };
 
@@ -53,8 +76,7 @@ module.exports = (env) =>
             'main-client': './ClientApp/boot-client.ts'
         },
         output: {
-            path: path.join(__dirname, clientBundleOutputDir),
-            libraryTarget: 'var'
+            path: path.join(__dirname, clientBundleOutputDir)
         },
         plugins: [
             new webpack.DllReferencePlugin({
@@ -69,9 +91,9 @@ module.exports = (env) =>
             })])
     });
 
-    const schemesBundleConfig = merge(sharedConfig, {
+    const schemesClientBundleConfig = merge(sharedConfig, {
         entry: {
-            'schemes-module': './ClientApp/app/modules/schemes.module.ts'
+            'schemes-module-client': './ClientApp/schemes/schemes.client-module.ts'
         },
         output: {
             path: path.join(__dirname, clientBundleOutputDir),
@@ -85,10 +107,62 @@ module.exports = (env) =>
         ].concat(isDevBuild ? [] : [
             new AotPlugin({
                 tsConfigPath: './tsconfig.json',
-                entryModule: path.join(__dirname, 'ClientApp/app/modules/schemes.module#SchemesModule'),
+                entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.client-module#SchemesClientModule'),
                 exclude: ['./**/*.server.ts']
             })])
     });
 
-    return [clientBundleConfig, schemesBundleConfig];
+    const serverBundleConfig = merge(sharedConfig, {
+        resolve: { mainFields: ['main'] },
+        entry: { 'main-server': './ClientApp/boot-server.ts' },
+        plugins: [
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./ClientApp/dist/vendor-manifest.json'),
+                sourceType: 'commonjs2',
+                name: './vendor'
+            })
+        ].concat(isDevBuild ? [] : [
+            // Plugins that apply in production builds only
+            new AotPlugin({
+                tsConfigPath: './tsconfig.json',
+                entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
+                exclude: ['./**/*.client.ts']
+            })
+        ]),
+        output: {
+            libraryTarget: 'commonjs',
+            path: path.join(__dirname, './ClientApp/dist')
+        },
+        target: 'node',
+        devtool: isDevBuild || isTest ? 'inline-source-map' : false
+    });
+
+    const schemesServerBundleConfig = merge(sharedConfig, {
+        resolve: { mainFields: ['main'] },
+        entry: { 'schemes-module-server': './ClientApp/schemes/schemes.server-module.ts' },
+        plugins: [
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./ClientApp/dist/vendor-manifest.json'),
+                sourceType: 'commonjs2',
+                name: './vendor'
+            })
+        ].concat(isDevBuild ? [] : [
+            // Plugins that apply in production builds only
+            new AotPlugin({
+                tsConfigPath: './tsconfig.json',
+                entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.server-module#SchemesServerModule'),
+                exclude: ['./**/*.client.ts']
+            })
+        ]),
+        output: {
+            libraryTarget: 'commonjs',
+            path: path.join(__dirname, clientBundleOutputDir)
+        },
+        target: 'node',
+        devtool: isDevBuild || isTest ? 'inline-source-map' : false
+    });
+
+    return [clientBundleConfig, serverBundleConfig, schemesClientBundleConfig, schemesServerBundleConfig];
 };

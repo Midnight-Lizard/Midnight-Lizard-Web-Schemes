@@ -13,10 +13,9 @@ module.exports = function (config)
             './boot-tests.ts'
         ],
         preprocessors: {
-            './boot-tests.ts': ['webpack']
+            './boot-tests.ts': ['webpack', 'sourcemap']
         },
         reporters: ['progress', 'kjhtml'],
-        trxReporter: { outputFile: 'test-results.trx', shortTestName: false },
         tfsReporter: { outputFile: 'test-results.xml', outputDir: 'test-results' },
         port: 9876,
         colors: true,
@@ -26,7 +25,7 @@ module.exports = function (config)
         customLaunchers: {
             ChromeDev: {
                 base: 'Chrome',
-                chromeDataDir: '../Karma'
+                chromeDataDir: '../../Karma'
             },
             ChromeCI: {
                 base: 'ChromeHeadless',
@@ -34,7 +33,7 @@ module.exports = function (config)
                 flags: ['--no-sandbox']
             }
         },
-        mime: { 'application/javascript': ['ts', 'tsx'] },
+        mime: { 'application/javascript': ['ts'] },
         singleRun: false,
         webpack: require('../../webpack.config.js')()[0],
             //.filter(config => config.target !== 'node'), // Test against client bundle, because tests run in a browser
