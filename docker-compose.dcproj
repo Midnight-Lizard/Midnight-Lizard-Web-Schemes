@@ -9,6 +9,7 @@
     <ProjectVersion>2.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose.test.yml" />
     <None Include="docker-compose.build.yml" />
     <None Include="docker-compose.ci.test.yml" />
     <None Include="docker-compose.ci.build.yml" />

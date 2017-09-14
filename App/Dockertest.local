@@ -5,4 +5,7 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 WORKDIR /app
 COPY . .
+RUN rm -r ./node_modules
+RUN rm -r ./wwwroot/dist
+RUN NODE_ENV=production npm i
 CMD npm run ci-test

@@ -11,6 +11,10 @@
     "strict": true,
     "lib": [ "es6", "dom" ]
   },
-  "exclude": [ "bin", "node_modules" ],
+  "exclude": [
+    "bin",
+    "node_modules"
+    //"**/*.spec.ts"
+  ],
   "atom": { "rewriteTsconfig": false }
 }
