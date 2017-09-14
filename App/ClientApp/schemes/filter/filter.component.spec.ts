@@ -1,4 +1,3 @@
-/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
 import { expect as assume } from 'chai';
 import { TestBed, fakeAsync, tick, inject, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { NgForm, ReactiveFormsModule } from "@angular/forms";

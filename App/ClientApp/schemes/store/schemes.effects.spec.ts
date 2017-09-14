@@ -1,5 +1,4 @@
-﻿/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
-import { TestBed, fakeAsync, tick, async } from '@angular/core/testing';
+﻿import { TestBed, fakeAsync, tick, async } from '@angular/core/testing';
 import { Router } from "@angular/router";
 import { provideMockActions } from '@ngrx/effects/testing';
 import { TestScheduler } from "jasmine-marbles/src/scheduler";

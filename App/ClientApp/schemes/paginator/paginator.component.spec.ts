@@ -1,5 +1,4 @@
-﻿/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
-import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick }
+﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick }
     from '@angular/core/testing';
 import { expect as assume } from 'chai';
 import { BrowserModule, By } from "@angular/platform-browser";

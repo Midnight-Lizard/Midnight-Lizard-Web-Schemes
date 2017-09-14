@@ -1,5 +1,4 @@
-﻿/// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
-import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick, flushMicrotasks, flush, async, discardPeriodicTasks }
+﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick, flushMicrotasks, flush, async, discardPeriodicTasks }
     from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 import { expect as assume } from 'chai';
