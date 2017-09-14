@@ -1,3 +1,6 @@
 FROM microsoft/aspnetcore-build:2
 COPY . .
-CMD /bin/bash -c "dotnet restore ./MLSchemes.sln && dotnet publish ./MLSchemes.sln -c Release -o ./obj/Docker/publish"
+RUN rm -r ./App/node_modules
+COPY ./App/node_modules/typescript ./App/node_modules/typescript
+RUN dotnet restore ./MLSchemes.sln
+CMD dotnet publish ./MLSchemes.sln -c Release -o ./obj/Docker/publish
