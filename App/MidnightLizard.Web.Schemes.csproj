@@ -31,7 +31,8 @@
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="NODE_ENV=production npm install" />
+    <Exec Command="npm install" />
+    <Exec Command="npm run --prefix ./node_modules/midnight-lizard-vendor prod-build" />
     <Exec Command="node node_modules/webpack/bin/webpack.js -p --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->

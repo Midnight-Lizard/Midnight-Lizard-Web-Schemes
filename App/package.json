@@ -1,5 +1,6 @@
 {
   "name": "midnight-lizard-web-schemes",
+  "description": "Midnight Lizard Color Schemes",
   "version": "0.0.0",
   "license": "MIT",
   "repository": "https://github.com/pavel-agarkov/Midnight-Lizard-Web-Schemes.git",
@@ -11,10 +12,14 @@
     "docker-build": "cd ..&&docker-compose -f docker-compose.build.yml up --build --abort-on-container-exit",
     "prod-build": "webpack -p --env.prod",
     "dev-build": "webpack",
-    "prod-install": "SET NODE_ENV=production&& npm install"
+    "vendor-prod-build": "npm run --prefix ./node_modules/midnight-lizard-vendor prod-build",
+    "vendor-dev-build": "npm run --prefix ./node_modules/midnight-lizard-vendor dev-build"
   },
   "dependencies": {
-    "midnight-lizard-vendor": "2.4.1",
-    "midnight-lizard-testing": "1.1.5"
+    "midnight-lizard-vendor": "2.5.0"
+  },
+  "devDependencies": {
+    "midnight-lizard-testing": "1.2.0",
+    "karma": "1.7.1"
   }
 }

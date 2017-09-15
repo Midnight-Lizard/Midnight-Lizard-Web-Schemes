@@ -7,5 +7,6 @@ WORKDIR /app
 COPY . .
 RUN rm -r ./node_modules
 RUN rm -r ./wwwroot/dist
-RUN NODE_ENV=production npm i
+RUN npm i
+RUN npm run --prefix ./node_modules/midnight-lizard-vendor prod-build
 CMD npm run ci-test
