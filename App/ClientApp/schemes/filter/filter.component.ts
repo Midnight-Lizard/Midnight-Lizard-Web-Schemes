@@ -1,4 +1,5 @@
-﻿import { Subscription } from "rxjs/Subscription";
+﻿import "rxjs/add/operator/debounceTime";
+import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import { Component, OnDestroy } from '@angular/core';
