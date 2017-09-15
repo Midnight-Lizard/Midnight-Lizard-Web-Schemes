@@ -81,7 +81,8 @@ namespace MidnightLizard.Web.Schemes
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseCors("AllowAll");
