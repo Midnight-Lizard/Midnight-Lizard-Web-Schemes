@@ -3,18 +3,15 @@
     "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
+    "removeComments": true,
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true, // Workaround for https://github.com/angular/angular/issues/17863. Remove this if you upgrade to a fixed version of Angular.
+    "skipLibCheck": true,
     "strict": true,
     "lib": [ "es6", "dom" ]
   },
-  "exclude": [
-    "bin",
-    "node_modules"
-    //"**/*.spec.ts"
-  ],
+  "exclude": [ "bin", "node_modules" ],
   "atom": { "rewriteTsconfig": false }
 }
