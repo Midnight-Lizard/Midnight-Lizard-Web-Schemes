@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  midnightlizard.web.schemes:
+  schemes:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

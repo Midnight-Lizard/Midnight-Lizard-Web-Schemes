@@ -13,8 +13,8 @@ import { RouterStub } from "../../test/stubs/router.stub";
 import { because } from "../../test/utils/because";
 import { nameof } from "../../test/utils/nameof";
 import { click } from "../../test/utils/click.helper";
-import { FeatureState, initialState } from "../store/schemes.state";
-import { Actions as Act } from "../store/schemes.actions";
+import { RootState, initialState } from "../store/schemes.state";
+import * as Act from "../store/schemes.actions";
 import { PageOptions } from "../model/page.options";
 import { SchemesSide } from "../model/scheme.entry";
 import { SchemesList } from "../model/schemes.lists";
@@ -46,7 +46,7 @@ describe('SchemesPaginatorComponent',
         }));
 
         beforeEach(fakeAsync(inject(
-            [Store], (store$: Store<FeatureState>) =>
+            [Store], (store$: Store<RootState>) =>
             {
                 store$.dispatch(initialAction);
                 fixture.detectChanges();

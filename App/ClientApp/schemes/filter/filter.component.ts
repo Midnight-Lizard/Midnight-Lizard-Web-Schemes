@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 import { SchemesSide } from "../model/scheme.entry";
 import { SchemesFilters, createRouteParamsFromFilters } from "../model/schemes.filters";
-import { State, FeatureState } from "../store/schemes.state";
+import { FeatureState, RootState } from "../store/schemes.state";
 
 @Component({
     selector: 'cs-filter',
@@ -20,7 +20,7 @@ export class SchemesFilterComponent implements OnDestroy
     protected readonly _storeSub: Subscription;
     readonly filtersForm: FormGroup;
 
-    constructor(router: Router, store: Store<FeatureState>, fb: FormBuilder)
+    constructor(router: Router, store: Store<RootState>, fb: FormBuilder)
     {
         this.filtersForm = fb.group({ name: '', side: SchemesSide[SchemesSide.none] });
 

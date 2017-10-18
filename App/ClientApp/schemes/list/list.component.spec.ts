@@ -21,8 +21,8 @@ import { because } from "../../test/utils/because";
 import { nameof } from "../../test/utils/nameof";
 import { click } from "../../test/utils/click.helper";
 import { PageOptions } from "../model/page.options";
-import { FeatureState } from "../store/schemes.state";
-import { Actions as Act } from "../store/schemes.actions";
+import { RootState } from "../store/schemes.state";
+import * as Act from "../store/schemes.actions";
 import { getTestScheduler } from "jasmine-marbles";
 import { TestScheduler } from "jasmine-marbles/src/scheduler";
 import { MarbleSchedulerInjector } from "../../test/utils/marble-scheduler-injector";
@@ -75,7 +75,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
         component = fixture.componentInstance;
     }));
 
-    beforeEach(inject([Store], (store$: Store<FeatureState>) =>
+    beforeEach(inject([Store], (store$: Store<RootState>) =>
     {
         store$.dispatch(new Act.SchemesCurrentPageLoaded({
             currPage: testSchemes, total: testSchemes.length, list: SchemesList.full,
@@ -199,7 +199,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                                 because(() => scheme.liked));
                         }));
                         it(`should dispatch LikeScheme or DislikeScheme EventAction on click`, fakeAsync(inject(
-                            [Store], (store$: Store<FeatureState>) =>
+                            [Store], (store$: Store<RootState>) =>
                             {
                                 click(this.likeButton);
                                 fixture.detectChanges();
@@ -236,7 +236,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                                 because(() => scheme.favorited));
                         }));
                         it(`should dispatch AddSchemeToFavorites or RemoveSchemeFromFavorites EventAction on click`, fakeAsync(inject(
-                            [Store], (store$: Store<FeatureState>) =>
+                            [Store], (store$: Store<RootState>) =>
                             {
                                 click(this.favoritesButton);
                                 fixture.detectChanges();

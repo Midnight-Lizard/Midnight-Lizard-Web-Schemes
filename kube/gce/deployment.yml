@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: schemes
+  name: schemes
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: schemes
+  template:
+    metadata:
+      labels:
+        app: schemes
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 80
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: context
+                  operator: In
+                  values:
+                  - portal
+                  - identity
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+      - image: us.gcr.io/midnight-lizard/schemes:2
+        name: schemes
+        ports:
+          - containerPort: 80
+            protocol: TCP
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /status/isready
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /status/isalive
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 10
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Production
+        - name: ENV
+          value: prod
+        - name: NODE_ENV
+          value: production
+        - name: PORTAL_URL
+          value: http://midnight-lizard.online
+        - name: IDENTITY_URL
+          value: http://identity.midnight-lizard.online
+      restartPolicy: Always

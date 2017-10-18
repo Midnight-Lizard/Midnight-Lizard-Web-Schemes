@@ -4,9 +4,9 @@ import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 
-import { State, FeatureState } from "../store/schemes.state";
+import { FeatureState, RootState } from "../store/schemes.state";
 import { SchemeEntry } from "../model/scheme.entry";
-import { Actions as Act } from "../store/schemes.actions";
+import * as Act from "../store/schemes.actions";
 import { Subject } from "rxjs/Subject";
 
 @Component({
@@ -23,7 +23,7 @@ export class SchemesListComponent implements OnDestroy
     protected readonly isDestroyed = new Subject();
 
     constructor(media: ObservableMedia,
-        protected readonly store$: Store<FeatureState>)
+        protected readonly store$: Store<RootState>)
     {
         this.schemes$ = store$.select(s => s.CS.schemes.currPage);
         this._mediaSub = media.subscribe((change: MediaChange) =>

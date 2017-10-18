@@ -1,16 +1,18 @@
-﻿import { ActionTypeNames, Action } from "./schemes.action-sets";
+﻿import { User } from "oidc-client";
+
+import { ActionFakeTypes, Action } from "./schemes.action-sets";
 import { SchemeEntry, SchemesSide } from "../model/scheme.entry";
 import { SchemesFilters } from "../model/schemes.filters";
 import { PageOptions } from "../model/page.options";
 import { SchemesList } from "../model/schemes.lists";
 
-export const SchemesFeature: keyof FeatureState = "CS";
+export const SchemesFeature: keyof RootState = "CS";
 
 export interface ActionError 
 {
     readonly errorMessage: string,
     readonly originalError: any,
-    readonly source: ActionTypeNames | Action
+    readonly source: ActionFakeTypes | Action
 };
 
 export interface SchemesState
@@ -26,18 +28,22 @@ export interface SchemesState
     readonly total: number
 }
 
-export interface State
+export interface FeatureState
 {
     readonly schemes: SchemesState
 }
 
-export interface FeatureState
+export interface RootState
 {
-    /** CS - Color Schemes */
-    readonly CS: State
+    /** Color Schemes feature */
+    readonly CS: FeatureState,
+    /** Midnight Lizard app state */
+    readonly ML: {
+        user?: User
+    }
 }
 
-export const initialState: State = {
+export const initialState: FeatureState = {
     schemes: {
         list: SchemesList.full,
         filters: {

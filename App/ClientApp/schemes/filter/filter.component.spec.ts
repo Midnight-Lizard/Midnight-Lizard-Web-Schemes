@@ -17,8 +17,8 @@ import { SchemesList } from "../model/schemes.lists";
 import { SchemesSide } from "../model/scheme.entry";
 import { RouterStub } from "../../test/stubs/router.stub";
 import { schemesReducer } from "../store/schemes.reducer";
-import { initialState, SchemesFeature, FeatureState } from "../store/schemes.state";
-import { Actions as Act } from "../store/schemes.actions";
+import { initialState, SchemesFeature, RootState } from "../store/schemes.state";
+import * as Act from "../store/schemes.actions";
 
 let component: SchemesFilterComponent;
 let fixture: ComponentFixture<SchemesFilterComponent>;
@@ -83,7 +83,7 @@ describe('SchemesFilterComponent', () =>
         })));
 
     it('should change form values when store filters value changes', fakeAsync(inject(
-        [Store], (store$: Store<FeatureState>) =>
+        [Store], (store$: Store<RootState>) =>
         {
             const testFiltersValue = { name: "test", side: SchemesSide.dark };
             store$.dispatch(new Act.SchemesCurrentPageLoaded({

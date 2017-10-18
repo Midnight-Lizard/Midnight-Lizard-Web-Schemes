@@ -21,8 +21,8 @@ import { schemesReducer } from "./store/schemes.reducer";
         HttpModule,
         FlexLayoutModule,
         StoreModule.forRoot(
-            { global: reducer },
-            { initialState: { global: {} } }),
+            { ML: reducer },
+            { initialState: { ML: {} } }),
         StoreModule.forFeature(SchemesFeature, { schemes: schemesReducer }, { initialState }),
         EffectsModule.forRoot([]),
         EffectsModule.forFeature([])

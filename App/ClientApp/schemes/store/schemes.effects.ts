@@ -1,4 +1,4 @@
-import "rxjs/add/operator/map"; 
+import "rxjs/add/operator/map";
 import "rxjs/add/operator/groupBy";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/mergeMap";
@@ -8,7 +8,6 @@ import "rxjs/add/operator/filter";
 import "rxjs/add/operator/withLatestFrom";
 import { of } from "rxjs/observable/of";
 import { Observable } from "rxjs/Observable";
-import { Operator } from "rxjs/Operator";
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from '@ngrx/effects';
 import { ActivatedRouteSnapshot, Params, Router } from "@angular/router";
@@ -19,9 +18,9 @@ import { SchemesService } from "../backend/schemes.service";
 import { SchemesFilters, getFiltersFromRoute, filtersAreEqual, createRouteParamsFromFilters } from "../model/schemes.filters";
 import { PageOptions, getPageOptionsFromRoute, isNextPageOptions, isPrevPageOptions, createRouteParamsFromPageOptions, pageOptionsAreEqual } from "../model/page.options";
 import { getSchemesListFromRoute } from "../model/schemes.lists";
-import { State, FeatureState, initialState } from "./schemes.state";
+import { FeatureState, RootState, initialState } from "./schemes.state";
 import { Action, ActionType } from "./schemes.action-sets";
-import { Actions as Act } from "./schemes.actions";
+import * as Act from "./schemes.actions";
 
 export const throttlingDuration = 500;
 
@@ -30,7 +29,7 @@ export class SchemesEffects
 {
     constructor(
         protected readonly actions$: Actions<Action>,
-        protected readonly store$: Store<FeatureState>,
+        protected readonly store$: Store<RootState>,
         protected readonly service: SchemesService,
         protected readonly router: Router
     ) { }
@@ -187,9 +186,8 @@ export class SchemesEffects
     });
 
     private handleNavigation(section: string,
-        callback: (route: ActivatedRouteSnapshot, state: State) => Observable<any>)
+        callback: (route: ActivatedRouteSnapshot, state: FeatureState) => Observable<any>)
     {
-        const fuck = "debugger";
         const route$ = this.actions$.ofType(ActionType.RouterNavigation)
             .map(navAction => navAction.payload.routerState.root)
             .filter(root => !!root && !!root.firstChild && !!root.firstChild.routeConfig
@@ -214,7 +212,7 @@ export class SchemesEffects
         toNextAction: ((action: ActionType<TActionType>) => Observable<TNextAction>))
     {
         return this.actions$.ofType(actionType)
-            .groupBy((act: Act.CommandAction) => act.payload.id)
+            .groupBy(act => act.payload.id)
             .flatMap(grp => grp.throttleTime(throttlingDuration))
             .flatMap(toNextAction);
     }

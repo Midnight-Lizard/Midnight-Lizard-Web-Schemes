@@ -17,6 +17,7 @@ export class MarbleSchedulerInjector
                 case "all":
                     $this.injectIntoDebounceTime(scheduler);
                     $this.injectIntoThrottleTime(scheduler);
+                    $this.injectIntoDelay(scheduler);
                     break;
 
                 case "debounceTime":
@@ -27,8 +28,12 @@ export class MarbleSchedulerInjector
                     $this.injectIntoThrottleTime(scheduler);
                     break;
 
+                case "delay":
+                    $this.injectIntoDelay(scheduler);
+                    break;
+
                 default:
-                    throw new Error(`Method [${method}] is not supported for injection.`);
+                    throw new Error(`Method [${method}] is not supported for injection yet.`);
             }
         }
     }
@@ -50,6 +55,16 @@ export class MarbleSchedulerInjector
             function (this: Observable<any>, duration: number)
             {
                 return $this.originalThrottleTime.call(this, duration, scheduler);
+            });
+    }
+
+    static readonly originalDelay = Observable.prototype.delay;
+    static injectIntoDelay(scheduler: TestScheduler)
+    {
+        spyOn(Observable.prototype, 'delay').and.callFake(
+            function (this: Observable<any>, delay: number | Date)
+            {
+                return $this.originalDelay.call(this, delay, scheduler);
             });
     }
 }

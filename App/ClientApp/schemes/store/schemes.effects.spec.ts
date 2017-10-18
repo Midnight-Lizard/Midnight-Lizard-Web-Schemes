@@ -8,7 +8,7 @@ import { Observable } from "rxjs/Observable";
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { SchemesTestingModule } from "../schemes.testing-module";
-import { Actions as Act } from "./schemes.actions";
+import * as Act from "./schemes.actions";
 import { Action, ActionType } from "./schemes.action-sets";
 import { SchemesEffects, throttlingDuration } from './schemes.effects';
 import { SchemesService } from "../backend/schemes.service";
