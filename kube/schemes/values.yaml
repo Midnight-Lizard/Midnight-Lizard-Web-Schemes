@@ -1,0 +1,20 @@
+# Default values for schemes.
+replicaCount: 1
+image: schemes:latest
+pullPolicy: IfNotPresent
+antiAffinity:
+  weight: 100
+  apps:
+    - portal
+    - identity
+service:
+  name: schemes
+  type: NodePort
+  externalPort: 80
+  internalPort: 80
+env:
+  ASPNETCORE_ENVIRONMENT: Production
+  ENV: prod
+  NODE_ENV: production
+  PORTAL_URL: http://midnight-lizard.online
+  IDENTITY_URL: http://identity.midnight-lizard.online
