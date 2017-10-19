@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-TAG=4
+TAG=5
 PROJ=schemes
 REGISTRY=localhost:5000
 IMAGE=$REGISTRY/$PROJ:$TAG
