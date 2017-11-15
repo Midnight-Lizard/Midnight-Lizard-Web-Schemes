@@ -12,4 +12,4 @@ docker build -t $IMAGE \
     ../app
 kubectl config set-context minikube
 docker push $IMAGE
-./helm-deploy.sh -i $IMAGE -r $PROJ -c ../kube/$PROJ -s ingress.enabled=false
+./helm-deploy.sh -i $IMAGE -r $PROJ -c ../kube/$PROJ

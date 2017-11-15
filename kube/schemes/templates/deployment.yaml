@@ -33,6 +33,7 @@ spec:
                         {{- range .Values.antiAffinity.apps }}
                         - {{ . }}
                         {{- end }}
+      restartPolicy: Always
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image | quote }}
