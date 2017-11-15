@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using MidnightLizard.Web.Schemes.Infrastructure;
+using Microsoft.Extensions.Primitives;
 
 namespace MidnightLizard.Web.Schemes
 {
@@ -87,7 +89,21 @@ namespace MidnightLizard.Web.Schemes
 
             app.UseCors("AllowAll");
 
-            app.UseStaticFiles();
+            var settingsHeaders = CreateSettingsHeaders();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = context =>
+                {
+                    context.Context.Response.Headers.Add(
+                        nameof(Settings),
+                        typeof(Settings).GetProperties().Select(p => p.Name).ToArray());
+                    foreach (var settingHeader in settingsHeaders)
+                    {
+                        context.Context.Response.Headers.Add(settingHeader);
+                    }
+                }
+            });
             //app.UseStaticFiles(new StaticFileOptions()
             //{
             //    OnPrepareResponse = context =>
@@ -107,6 +123,15 @@ namespace MidnightLizard.Web.Schemes
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+        }
+
+        private Dictionary<string, StringValues> CreateSettingsHeaders()
+        {
+            var set = new Settings();
+            Configuration.Bind(set);
+            return typeof(Settings)
+                .GetProperties()
+                .ToDictionary(p => p.Name, p => (StringValues)p.GetValue(set));
         }
     }
 }
