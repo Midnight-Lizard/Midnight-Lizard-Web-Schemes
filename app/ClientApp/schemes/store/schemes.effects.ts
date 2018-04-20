@@ -80,6 +80,16 @@ export class SchemesEffects
                 }
             }))));
 
+    @Effect() processExternalModuleEvaluetion$ =
+    this.actions$.ofType(ActionType.ExternalModuleEvaluated).switchMap(act =>
+    {
+        if (act.payload.moduleName === "schemes" && act.payload.settings)
+        {
+            return of(new Act.SchemesSettingsUpdated({ settings: act.payload.settings }));
+        }
+        return of();
+    });
+
     @Effect() processCurrentPageUpdate$ =
     this.actions$.ofType(ActionType.SchemesCurrentPageLoaded).switchMap(act =>
     {
@@ -128,7 +138,6 @@ export class SchemesEffects
     @Effect() navigateToSchemesList$ =
     this.handleNavigation("index", (route, state) =>
     {
-        const fuck = "debugger";
         const list = getSchemesListFromRoute(route),
             filters = getFiltersFromRoute(route),
             pageOptions = getPageOptionsFromRoute(route, initialState.schemes.pageOptions);

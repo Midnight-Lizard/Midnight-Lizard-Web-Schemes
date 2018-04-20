@@ -5,6 +5,7 @@ import { SchemeEntry, SchemesSide } from "../model/scheme.entry";
 import { SchemesFilters } from "../model/schemes.filters";
 import { PageOptions } from "../model/page.options";
 import { SchemesList } from "../model/schemes.lists";
+import { SchemesSettings } from "../model/schemes-settings";
 
 export const SchemesFeature: keyof RootState = "CS";
 
@@ -25,7 +26,8 @@ export interface SchemesState
     readonly pageOptions: PageOptions,
     readonly pageSizeOptions: number[],
     readonly error?: ActionError,
-    readonly total: number
+    readonly total: number,
+    readonly settings?: SchemesSettings
 }
 
 export interface FeatureState

@@ -6,6 +6,7 @@ import { SchemesFilters } from "../model/schemes.filters";
 import { SchemesList } from "../model/schemes.lists";
 import { PageOptions } from "../model/page.options";
 import { SchemesState, ActionError } from "./schemes.state";
+import { SchemesSettings } from "../model/schemes-settings";
 
 export declare type SchemePayload = Partial<SchemeEntry> & { id: SchemeId };
 export declare type ActionErrorPayload = { error: ActionError };
@@ -18,7 +19,7 @@ export declare type CommandAction = LikeScheme | DislikeScheme | AddSchemeToFavo
 export class RouterNavigation implements RNA
 {
     readonly type = "ROUTER_NAVIGATION";
-    readonly payload: RouterNavigationPayload<RouterStateSnapshot>;
+    readonly payload: RouterNavigationPayload<RouterStateSnapshot> = null as any;
     constructor() { }
 };
 
@@ -126,4 +127,21 @@ export class SchemeRemovedFromFavorites
 {
     readonly type = "SchemeRemovedFromFavorites";
     constructor(readonly payload: SchemePayload) { }
+}
+
+export class ExternalModuleEvaluated
+{
+    readonly type = "ExternalModuleEvaluated";
+    constructor(readonly payload: {
+        moduleName: "schemes",
+        settings?: SchemesSettings
+    }) { }
+}
+
+export class SchemesSettingsUpdated
+{
+    readonly type = "SchemesSettingsUpdated";
+    constructor(readonly payload: {
+        settings: SchemesSettings
+    }) { }
 }

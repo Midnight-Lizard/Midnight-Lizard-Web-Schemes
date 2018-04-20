@@ -8,6 +8,10 @@ export function schemesReducer(state: SchemesState, action: Action): SchemesStat
 {
     switch (action.type)
     {
+        case ActionType.SchemesSettingsUpdated: {
+            return { ...state, ...action.payload };
+        }
+
         case ActionType.SchemesCurrentPageLoaded: {
             return { ...state, ...action.payload };
         }

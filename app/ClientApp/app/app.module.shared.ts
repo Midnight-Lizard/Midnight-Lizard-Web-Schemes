@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component'
 import { SchemesMaterialControlsModule } from "../shared/material.module";
 import { SchemesModule } from '../schemes/schemes.module';
+import { AppEffects } from './store/app.effects';
+import { AppReducer } from './store/app.reducer';
 
 
 @NgModule({
@@ -30,10 +32,10 @@ import { SchemesModule } from '../schemes/schemes.module';
         ]/*, { useHash: true }*/),
         StoreRouterConnectingModule,
         StoreModule.forRoot(
-            { global: reducer },
+            { global: AppReducer },
             { initialState: { global: {} } }),
         StoreDevtoolsModule.instrument(),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([AppEffects])
     ]
 })
 export class AppModuleShared { }
@@ -41,9 +43,4 @@ export class AppModuleShared { }
 export function schemesLoader()
 {
     return SchemesModule;
-}
-
-export function reducer(s: {}, a: Action)
-{
-    return s;
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{575E23A2-7251-4E35-B543-740E46617403}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MidnightLizard.Web.Schemes"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker\docker-compose.dcproj", "{16234450-F71C-47C5-8899-98C7D4413A4E}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "kube", "kube\", "{A903B8D5-B413-4BCC-919A-26B5A8B3A683}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "kube(1)", "kube\", "{A903B8D5-B413-4BCC-919A-26B5A8B3A683}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_54119"
@@ -67,17 +67,11 @@ Global
 		{E47321D2-BEB1-43C1-A389-4CCC28DD1338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E47321D2-BEB1-43C1-A389-4CCC28DD1338}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16234450-F71C-47C5-8899-98C7D4413A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16234450-F71C-47C5-8899-98C7D4413A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16234450-F71C-47C5-8899-98C7D4413A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16234450-F71C-47C5-8899-98C7D4413A4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A903B8D5-B413-4BCC-919A-26B5A8B3A683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A903B8D5-B413-4BCC-919A-26B5A8B3A683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A903B8D5-B413-4BCC-919A-26B5A8B3A683}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{A903B8D5-B413-4BCC-919A-26B5A8B3A683}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{0F4FB0FF-9E92-480B-ACD5-CEBC642C7E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F4FB0FF-9E92-480B-ACD5-CEBC642C7E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4FB0FF-9E92-480B-ACD5-CEBC642C7E0D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F4FB0FF-9E92-480B-ACD5-CEBC642C7E0D}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
