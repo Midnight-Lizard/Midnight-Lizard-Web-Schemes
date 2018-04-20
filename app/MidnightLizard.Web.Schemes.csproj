@@ -15,9 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
-    <None Remove="ClientApp\app\store\app.effects.ts" />
-    <None Remove="ClientApp\app\store\app.reducer.ts" />
-    <None Remove="ClientApp\schemes\model\schemes-settings.ts" />
     <None Remove="MidnightLizard.Web.Schemes.csproj.vspscc" />
     <None Remove="Properties\PublishProfiles\Midnight-Lizard-Web-Schemes.pubxml" />
     <None Remove="yarn.lock" />
