@@ -1,5 +1,5 @@
 ﻿import { Component, Inject } from '@angular/core';
-import { PageEvent, MdPaginator } from "@angular/material";
+import { PageEvent, MatPaginator } from "@angular/material";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RootState } from "../store/schemes.state";

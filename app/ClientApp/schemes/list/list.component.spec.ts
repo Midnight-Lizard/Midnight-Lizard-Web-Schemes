@@ -1,11 +1,11 @@
-﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick, flushMicrotasks, flush, async, discardPeriodicTasks }
+import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect, inject, tick, flushMicrotasks, flush, async, discardPeriodicTasks }
     from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 import { expect as assume } from 'chai';
 import { By } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { ObservableMedia } from "@angular/flex-layout";
-import { MdTooltip, MdCardTitle, MdCardImage, MdButton, MdPaginator }
+import { MatTooltip, MatCardTitle, MatCardImage, MatButton, MatPaginator }
     from "@angular/material";
 import { Subject } from "rxjs/Subject";
 import { Store } from "@ngrx/store";
@@ -89,13 +89,13 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
 
     it("should display cards for all test schemes", fakeAsync(() =>
     {
-        const cards = fixture.debugElement.queryAll(By.css("md-card"));
+        const cards = fixture.debugElement.queryAll(By.css("mat-card"));
         expect(cards.length).toEqual(testSchemes.length);
     }));
 
     it("should display paginator with correct page options", fakeAsync(() =>
     {
-        const paginator = fixture.debugElement.query(By.directive(MdPaginator)).componentInstance as MdPaginator;
+        const paginator = fixture.debugElement.query(By.directive(MatPaginator)).componentInstance as MatPaginator;
         const actualPageOptions: PageOptions = {
             pageIndex: paginator.pageIndex,
             pageSize: paginator.pageSize
@@ -112,7 +112,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
             {
                 beforeEach(fakeAsync(() =>
                 {
-                    this.card = fixture.debugElement.queryAll(By.css("md-card"))[i];
+                    this.card = fixture.debugElement.queryAll(By.css("mat-card"))[i];
                 }));
 
                 it(`should have Id in sid attribute`, fakeAsync(() =>
@@ -125,8 +125,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                     beforeEach(fakeAsync(() =>
                     {
                         this.header = fixture.debugElement
-                            .queryAll(By.css("md-card"))[i]
-                            .query(By.css("md-card-header"));
+                            .queryAll(By.css("mat-card"))[i]
+                            .query(By.css("mat-card-header"));
                     }));
 
                     it(`should have tooltip with scheme name`, fakeAsync(() =>
@@ -139,8 +139,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                         beforeEach(fakeAsync(() =>
                         {
                             this.titleElement = fixture.debugElement
-                                .queryAll(By.css("md-card"))[i]
-                                .query(By.directive(MdCardTitle))
+                                .queryAll(By.css("mat-card"))[i]
+                                .query(By.directive(MatCardTitle))
                                 .nativeElement as HTMLAnchorElement;
                         }));
                         it(`should have reference to scheme image url`, fakeAsync(() =>
@@ -159,8 +159,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                     beforeEach(fakeAsync(() =>
                     {
                         this.image = fixture.debugElement
-                            .queryAll(By.css("md-card"))[i]
-                            .query(By.directive(MdCardImage));
+                            .queryAll(By.css("mat-card"))[i]
+                            .query(By.directive(MatCardImage));
                     }));
 
                     it(`should have source bound to scheme image url`, fakeAsync(() =>
@@ -174,8 +174,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                     it(`should have 5 action buttons`, fakeAsync(() =>
                     {
                         expect(fixture.debugElement
-                            .queryAll(By.css("md-card"))[i]
-                            .queryAll(By.directive(MdButton)).length).toEqual(5);
+                            .queryAll(By.css("mat-card"))[i]
+                            .queryAll(By.directive(MatButton)).length).toEqual(5);
                     }));
 
                     describe(`Like button`, function (this: { likeButton: DebugElement }) 
@@ -183,8 +183,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                         beforeEach(fakeAsync(() =>
                         {
                             this.likeButton = fixture.debugElement
-                                .queryAll(By.css("md-card"))[i]
-                                .queryAll(By.directive(MdButton))[0];
+                                .queryAll(By.css("mat-card"))[i]
+                                .queryAll(By.directive(MatButton))[0];
                         }));
                         it(`should be filled with accent color if scheme is liked otherwise with primary`, fakeAsync(() =>
                         {
@@ -214,8 +214,8 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                         beforeEach(fakeAsync(() =>
                         {
                             this.favoritesButton = fixture.debugElement
-                                .queryAll(By.css("md-card"))[i]
-                                .queryAll(By.directive(MdButton))[1];
+                                .queryAll(By.css("mat-card"))[i]
+                                .queryAll(By.directive(MatButton))[1];
                         }));
                         it(`should be filled with warn color if scheme is in favorites otherwise with primary`, fakeAsync(() =>
                         {
@@ -231,7 +231,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                         }));
                         it(`should have appropriate icon`, fakeAsync(() =>
                         {
-                            const iconText = (this.favoritesButton.query(By.css("md-icon")).nativeElement as HTMLElement).textContent;
+                            const iconText = (this.favoritesButton.query(By.css("mat-icon")).nativeElement as HTMLElement).textContent;
                             assume(iconText).is.equal(scheme.favorited ? "favorite" : "favorite_border",
                                 because(() => scheme.favorited));
                         }));
@@ -271,7 +271,7 @@ describe('SchemesListComponent', function (this: { schemes: Subject<typeof testS
                     {
                         mediaStub.changeMedia(media.mqAlias);
                     }
-                    this.grid = fixture.debugElement.query(By.css("md-grid-list"));
+                    this.grid = fixture.debugElement.query(By.css("mat-grid-list"));
                     fixture.detectChanges();
                 })));
 

@@ -1,24 +1,24 @@
 ﻿<form [formGroup]="filtersForm" novalidate class="mat-h3">
-    <md-input-container class="filter-container" color="accent">
-        <button md-icon-button mdPrefix mdTooltip="Search">
-            <md-icon>search</md-icon>
+    <mat-form-field class="filter-container" color="accent">
+        <button mat-icon-button matPrefix matTooltip="Search">
+            <mat-icon>search</mat-icon>
         </button>
-        <input mdInput formControlName="name" placeholder="Filter by name">
-        <button md-icon-button mdSuffix mdTooltip="Clear filter" 
+        <input matInput formControlName="name" placeholder="Filter by name">
+        <button mat-icon-button matSuffix matTooltip="Clear filter" 
                 (click)="filtersForm.get('name')!.setValue('')">
-            <md-icon>clear</md-icon>
+            <mat-icon>clear</mat-icon>
         </button>
-    </md-input-container>
+    </mat-form-field>
 
-    <md-button-toggle-group formControlName="side" color="accent">
-        <md-button-toggle value="light" mdTooltip="Light side">
-            <md-icon>wb_sunny</md-icon>
-        </md-button-toggle>
-        <md-button-toggle value="none" mdTooltip="No side filter">
-            <md-icon>swap_horiz</md-icon>
-        </md-button-toggle>
-        <md-button-toggle value="dark" mdTooltip="Dark side">
-            <md-icon>brightness_3</md-icon>
-        </md-button-toggle>
-    </md-button-toggle-group>
+    <mat-button-toggle-group formControlName="side" color="accent">
+        <mat-button-toggle value="light" matTooltip="Light side">
+            <mat-icon>wb_sunny</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="none" matTooltip="No side filter">
+            <mat-icon>swap_horiz</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="dark" matTooltip="Dark side">
+            <mat-icon>brightness_3</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
 </form>

@@ -2,7 +2,7 @@
     from '@angular/core/testing';
 import { expect as assume } from 'chai';
 import { BrowserModule, By } from "@angular/platform-browser";
-import { MdSelect, MdPaginator } from "@angular/material";
+import { MatSelect, MatPaginator } from "@angular/material";
 import { Router, NavigationExtras } from "@angular/router";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Store } from "@ngrx/store";
@@ -28,7 +28,7 @@ const initialAction = new Act.SchemesCurrentPageLoaded({
 })
 
 describe('SchemesPaginatorComponent',
-    function (this: { paginator: MdPaginator })
+    function (this: { paginator: MatPaginator })
     {
         beforeEach(fakeAsync(() =>
         {
@@ -50,7 +50,7 @@ describe('SchemesPaginatorComponent',
             {
                 store$.dispatch(initialAction);
                 fixture.detectChanges();
-                this.paginator = fixture.debugElement.query(By.directive(MdPaginator)).componentInstance as MdPaginator;
+                this.paginator = fixture.debugElement.query(By.directive(MatPaginator)).componentInstance as MatPaginator;
             })));
 
         it('should react to store changes', fakeAsync(() =>

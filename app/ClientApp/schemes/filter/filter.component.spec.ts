@@ -3,7 +3,7 @@ import { TestBed, fakeAsync, tick, inject, ComponentFixture, ComponentFixtureAut
 import { NgForm, ReactiveFormsModule } from "@angular/forms";
 import { By } from "@angular/platform-browser";
 import { ActivatedRoute, Router, Params, NavigationExtras } from "@angular/router";
-import { MdButtonToggleGroup, MdButtonToggle } from "@angular/material";
+import { MatButtonToggleGroup, MatButtonToggle } from "@angular/material";
 import { StoreModule, Store } from "@ngrx/store";
 
 import { SchemesService } from "../backend/schemes.service";

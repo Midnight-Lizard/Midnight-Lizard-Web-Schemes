@@ -1,54 +1,46 @@
 ﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
-
-.root
-{
+@import '~@angular/material/theming';
+.root {
     height: 100%;
 }
 
-md-toolbar
-{
-    z-index: 1;
+mat-toolbar {
+    z-index: 2;
+    @include mat-elevation(6);
 }
 
-.content
-{
+.content {
     min-height: 100%;
 }
 
-.center
-{
+.center {
     background-color: mat-color($ml-content);
     padding: 20px;
     border-right: dashed 0.5px rgba(234, 234, 234, 0.80);
 }
 
-.left-side:not(important)
-{
+.left-side {
     width: 20%;
     border-right: dashed 0.5px rgba(234, 234, 234, 0.80);
     transform: translate3d(0px, 0px, 0px);
 }
 
-.right-side
-{
+.right-side {
     min-height: 100%;
     padding: 20px;
     background-color: $ml-background;
 }
 
-.right-side-container
-{
+.right-side-container {
     position: sticky;
     top: 20px;
 }
 
-.mat-drawer-content
-{
+.mat-drawer-content {
     margin-left: 20%;
     overflow-y: scroll !important;
 }
 
-.mat-drawer-container
-{
+.mat-drawer-container {
     flex: 1 1 0px;
 }

@@ -131,7 +131,7 @@ namespace MidnightLizard.Web.Schemes
             Configuration.Bind(set);
             return typeof(Settings)
                 .GetProperties()
-                .ToDictionary(p => p.Name, p => (StringValues)p.GetValue(set));
+                .ToDictionary(p => p.Name, p => new StringValues(p.GetValue(set) as string));
         }
     }
 }

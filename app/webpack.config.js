@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const AotPlugin = require('@ngtools/webpack').AotPlugin;
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-module.exports = (env) =>
-{
+module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
     const isTest = process.env.NODE_ENV === 'test';
@@ -20,7 +20,13 @@ module.exports = (env) =>
         },
         module: {
             rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
+                isDevBuild
+                    ? { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] }
+                    : {
+                        test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                        include: /ClientApp/,
+                        loader: '@ngtools/webpack'
+                    },
                 {
                     test: /\.html$/, use: [{
                         loader: 'html-loader', options: {
@@ -52,8 +58,7 @@ module.exports = (env) =>
                 }
             ]
         },
-        plugins:
-        [
+        plugins: [
             new CheckerPlugin()
         ].concat(isDevBuild
             ? // Plugins that apply in development builds only
@@ -63,10 +68,28 @@ module.exports = (env) =>
                     test: /\.(ts|js)($|\?)/i,
                     moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
                 })
-            ]
-            : // Plugins that apply in production builds only
-            [
-                new webpack.optimize.UglifyJsPlugin({ comments: false, output: { comments: false }, sourceMap: isDevBuild || isTest })
+            ] : [// Plugins that apply in production builds only
+                // new webpack.optimize.UglifyJsPlugin({
+                //     comments: false,
+                //     sourceMap: isDevBuild || isTest,
+                //     output: {
+                //         ascii_only: true,
+                //         comments: false,
+                //         beautify: false
+                //     },
+                //     uglifyOptions: {
+                //         ie8: false,
+                //         mangle: {
+                //             safari10: true,
+                //         },
+                //         output: {
+                //             ascii_only: true,
+                //             comments: false,
+                //             beautify: false,
+                //             webkit: true,
+                //         }
+                //     }
+                // })
             ])
     };
 
@@ -84,10 +107,15 @@ module.exports = (env) =>
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ].concat(isDevBuild ? [] : [
-            new AotPlugin({
+            new AngularCompilerPlugin({
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
                 exclude: ['./**/*.server.ts']
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                output: {
+                    ascii_only: true,
+                }
             })])
     });
 
@@ -105,10 +133,15 @@ module.exports = (env) =>
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ].concat(isDevBuild ? [] : [
-            new AotPlugin({
+            new AngularCompilerPlugin({
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.client-module#SchemesClientModule'),
                 exclude: ['./**/*.server.ts']
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                output: {
+                    ascii_only: true,
+                }
             })])
     });
 
@@ -123,13 +156,18 @@ module.exports = (env) =>
                 name: './vendor'
             })
         ].concat(isDevBuild ? [] : [
-            // Plugins that apply in production builds only
-            new AotPlugin({
+            new webpack.optimize.UglifyJsPlugin({
+                mangle: false,
+                compress: false,
+                output: {
+                    ascii_only: true
+                }
+            }),
+            new AngularCompilerPlugin({
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
                 exclude: ['./**/*.client.ts']
-            })
-        ]),
+            })]),
         output: {
             libraryTarget: 'commonjs',
             path: path.join(__dirname, './ClientApp/dist')
@@ -149,13 +187,18 @@ module.exports = (env) =>
                 name: './vendor'
             })
         ].concat(isDevBuild ? [] : [
-            // Plugins that apply in production builds only
-            new AotPlugin({
+            new webpack.optimize.UglifyJsPlugin({
+                mangle: false,
+                compress: false,
+                output: {
+                    ascii_only: true,
+                }
+            }),
+            new AngularCompilerPlugin({
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.server-module#SchemesServerModule'),
                 exclude: ['./**/*.client.ts']
-            })
-        ]),
+            })]),
         output: {
             libraryTarget: 'commonjs',
             path: path.join(__dirname, clientBundleOutputDir)

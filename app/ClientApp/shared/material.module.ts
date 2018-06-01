@@ -1,21 +1,21 @@
 ﻿import { NgModule } from '@angular/core';
 import
 {
-    MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule, MdGridListModule,
-    MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-    MdCardModule, MdTableModule, MdPaginatorModule, MdButtonToggleModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule, MatGridListModule,
+    MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+    MatCardModule, MatTableModule, MatPaginatorModule, MatButtonToggleModule
 } from '@angular/material';
 
 @NgModule({
     imports: [
-        MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule, MdGridListModule,
-        MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-        MdCardModule, MdTableModule, MdPaginatorModule, MdButtonToggleModule
+        MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule, MatGridListModule,
+        MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+        MatCardModule, MatTableModule, MatPaginatorModule, MatButtonToggleModule
     ],
     exports: [
-        MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule, MdGridListModule,
-        MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-        MdCardModule, MdTableModule, MdPaginatorModule, MdButtonToggleModule
+        MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule, MatGridListModule,
+        MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+        MatCardModule, MatTableModule, MatPaginatorModule, MatButtonToggleModule
     ]
 })
 export class SchemesMaterialControlsModule

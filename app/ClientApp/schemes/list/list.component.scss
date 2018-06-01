@@ -5,12 +5,12 @@
     width: 100%;
 }
 
-md-card
+mat-card
 {
     margin: 3px;
 }
 
-md-card-actions .mat-icon:not(important)
+mat-card-actions .mat-icon:not(important)
 {
     width: 20px;
     height: 20px;
@@ -18,14 +18,14 @@ md-card-actions .mat-icon:not(important)
     font-size: 20px;
 }
 
-md-card-actions .mat-icon-button
+mat-card-actions .mat-icon-button
 {
     line-height: 36px;
     width: 36px;
     height: 36px;
 }
 
-md-card-actions
+mat-card-actions
 {
     text-align: center;
 }

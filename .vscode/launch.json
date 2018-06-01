@@ -5,7 +5,7 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Dev HMR",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -30,7 +30,48 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "Mode": "StandAlone",
+                "ENV": "dev",
+                "PORTAL_URL": "http://localhost:7000",
+                "IDENTITY_URL": "http://192.168.1.47:7002",
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:7001"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": "Dev hidden",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceRoot}/App/bin/Debug/netcoreapp2.0/MidnightLizard.Web.Schemes.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/App",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ENV": "prod",
+                "PORTAL_URL": "http://localhost:7000",
+                "IDENTITY_URL": "http://192.168.1.47:7002",
+                "ASPNETCORE_ENVIRONMENT": "Production",
+                "ASPNETCORE_URLS": "http://localhost:7001"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/Views"

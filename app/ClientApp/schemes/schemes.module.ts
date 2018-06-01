@@ -52,4 +52,4 @@ const index = "index";
     ]
 })
 export class SchemesModule { }
-export default SchemesModule;
+// export default SchemesModule;
