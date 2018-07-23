@@ -58,9 +58,7 @@ module.exports = (env) => {
                 }
             ]
         },
-        plugins: [
-            new CheckerPlugin()
-        ].concat(isDevBuild
+        plugins: [new CheckerPlugin()].concat(isDevBuild
             ? // Plugins that apply in development builds only
             [
                 new webpack.SourceMapDevToolPlugin({
@@ -68,29 +66,7 @@ module.exports = (env) => {
                     test: /\.(ts|js)($|\?)/i,
                     moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
                 })
-            ] : [// Plugins that apply in production builds only
-                // new webpack.optimize.UglifyJsPlugin({
-                //     comments: false,
-                //     sourceMap: isDevBuild || isTest,
-                //     output: {
-                //         ascii_only: true,
-                //         comments: false,
-                //         beautify: false
-                //     },
-                //     uglifyOptions: {
-                //         ie8: false,
-                //         mangle: {
-                //             safari10: true,
-                //         },
-                //         output: {
-                //             ascii_only: true,
-                //             comments: false,
-                //             beautify: false,
-                //             webkit: true,
-                //         }
-                //     }
-                // })
-            ])
+            ] : [])
     };
 
     // Configuration for client-side bundle suitable for running in browsers
@@ -107,15 +83,12 @@ module.exports = (env) => {
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ].concat(isDevBuild ? [] : [
+            new webpack.optimize.UglifyJsPlugin(),
             new AngularCompilerPlugin({
+                mainPath: path.join(__dirname, 'ClientApp/boot-client.ts'),
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
                 exclude: ['./**/*.server.ts']
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-                output: {
-                    ascii_only: true,
-                }
             })])
     });
 
@@ -133,21 +106,22 @@ module.exports = (env) => {
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             })
         ].concat(isDevBuild ? [] : [
+            new webpack.optimize.UglifyJsPlugin(),
             new AngularCompilerPlugin({
+                mainPath: path.join(__dirname, 'ClientApp/schemes/schemes.client-module.ts'),
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.client-module#SchemesClientModule'),
                 exclude: ['./**/*.server.ts']
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-                output: {
-                    ascii_only: true,
-                }
             })])
     });
 
     const serverBundleConfig = merge(sharedConfig, {
         resolve: { mainFields: ['main'] },
-        entry: { 'main-server': './ClientApp/boot-server.ts' },
+        entry: { 
+            'main-server': isDevBuild
+                ? './ClientApp/boot-server.ts'
+                : './ClientApp/boot-server-prod.ts'
+         },
         plugins: [
             new webpack.DllReferencePlugin({
                 context: __dirname,
@@ -156,14 +130,8 @@ module.exports = (env) => {
                 name: './vendor'
             })
         ].concat(isDevBuild ? [] : [
-            new webpack.optimize.UglifyJsPlugin({
-                mangle: false,
-                compress: false,
-                output: {
-                    ascii_only: true
-                }
-            }),
             new AngularCompilerPlugin({
+                mainPath: path.join(__dirname, 'ClientApp/boot-server-prod.ts'),
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
                 exclude: ['./**/*.client.ts']
@@ -195,6 +163,7 @@ module.exports = (env) => {
                 }
             }),
             new AngularCompilerPlugin({
+                mainPath: path.join(__dirname, 'ClientApp/schemes/schemes.server-module.ts'),
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/schemes/schemes.server-module#SchemesServerModule'),
                 exclude: ['./**/*.client.ts']

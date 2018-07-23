@@ -53,15 +53,15 @@ namespace MidnightLizard.Web.Schemes
             });
             // Add framework services.
             services.AddMvc();
-            if (_env.IsDevelopment())
+            services.AddNodeServices(options =>
             {
-                services.AddNodeServices(options =>
+                if (_env.IsDevelopment())
                 {
                     // chrome-devtools://
                     options.LaunchWithDebugging = true;
                     options.DebuggingPort = 9229;
-                });
-            }
+                }
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

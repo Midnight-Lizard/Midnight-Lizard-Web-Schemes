@@ -1,4 +1,5 @@
 ﻿import { of } from "rxjs/observable/of";
+import "rxjs/add/operator/switchMap";
 import { Injectable, PLATFORM_ID, Inject } from "@angular/core";
 import { isPlatformBrowser } from '@angular/common';
 import { Effect } from "@ngrx/effects";

@@ -1,4 +1,4 @@
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule, Injectable, NgModuleFactoryLoader } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -12,6 +12,8 @@ import { SchemesMaterialControlsModule } from "../shared/material.module";
 import { SchemesModule } from '../schemes/schemes.module';
 import { AppEffects } from './store/app.effects';
 import { AppReducer } from './store/app.reducer';
+import { BrowserModule } from '@angular/platform-browser';
+import { ExternalModuleLoader } from './module.loader.service';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { AppReducer } from './store/app.reducer';
             { path: '', redirectTo: 'schemes', pathMatch: 'full' },
             {
                 path: 'schemes',
-                loadChildren: schemesLoader//'../schemes/schemes.module#SchemesModule'
+                loadChildren: '../schemes/schemes.module#SchemesModule'
+                // loadChildren: schemesLoader
             },
             { path: '**', redirectTo: 'schemes' }
         ]/*, { useHash: true }*/),
@@ -35,7 +38,11 @@ import { AppReducer } from './store/app.reducer';
             { global: AppReducer },
             { initialState: { global: {} } }),
         StoreDevtoolsModule.instrument(),
-        EffectsModule.forRoot([AppEffects])
+        EffectsModule.forRoot([AppEffects]),
+        BrowserModule.withServerTransition({ appId: 'ml' })
+    ],
+    providers: [
+        // { provide: NgModuleFactoryLoader, useClass: ExternalModuleLoader }
     ]
 })
 export class AppModuleShared { }
